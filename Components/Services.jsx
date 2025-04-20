@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export default ({
   setOpenProfile,
-  setCompleteModel,
+  setCompleteModal,
   setGetModel,
   setStartModal,
 }) => {
@@ -30,7 +30,7 @@ export default ({
 
   const openModelBox = (text) => {
     if (text === 1) {
-      setCompleteModel(true)
+      setCompleteModal(true)
     } else if (text === 2) {
       setGetModel(true)
     } else if (text === 3) {

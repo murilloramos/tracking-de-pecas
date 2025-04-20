@@ -1,7 +1,7 @@
 export default ({ setCreateShipmentModel, allShipmentsData }) => {
     const converTime = (time) => {
         const newTime = new Date(time)
-        const dataTime = network.Intl.DateTimeFormat("en-US", {
+        const dataTime = Intl.DateTimeFormat("en-US", {
             year: "numeric",
             month: "2-digit",
             day: "2-digit",
@@ -49,37 +49,39 @@ export default ({ setCreateShipmentModel, allShipmentsData }) => {
                     </thead>
                     <tbody className="text-gray-600 divide-y">
                         {allShipmentsData?.map((shipment, idx) => (
+                        // Debugging log to check the shipment data
+                        console.log(shipment),  // Add this line to inspect the shipment data
                         <tr key={idx}>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment.sender.slice(0,15)}...
+                                {shipment?.remetente ? shipment.remetente.slice(0, 15) : "No Sender"}...
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment.receiver.slice(0,15)}...
+                                {shipment?.destinatario ? shipment.destinatario.slice(0, 15) : "No Receiver"}...
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {converTime(shipment.pickupTime)}
+                                {converTime(shipment?.horaColeta)}  {/* Check if shipment.horaColeta is valid */}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment.distance} Km
+                                {shipment?.distancia ?? "N/A"} Km  {/* Optional chaining and nullish coalescing */}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment.price}
+                                {shipment?.custo ?? "N/A"} {/* Optional chaining and nullish coalescing */}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment.deliveryTime}
+                                {shipment?.horaEntrega ?? "N/A"} {/* Optional chaining and nullish coalescing */}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment.isPaid ? "Completed" : "Not Complete"}
+                                {shipment?.estaPago ? "Completed" : "Not Complete"}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment.status == 0
-                                ? "Pending"
-                                : shipment.status == 1
-                                ? "IN_TRANSIT"
-                                : "Delivered"}
+                                {shipment?.status === 0
+                                    ? "Pending"
+                                    : shipment?.status === 1
+                                    ? "IN_TRANSIT"
+                                    : "Delivered"}
                             </td>
                         </tr>
-                    ))}
+                        ))}
                     </tbody>
                 </table>
             </div>

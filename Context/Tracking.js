@@ -22,17 +22,27 @@ export const TrackingProvider = ({ children }) => {
         console.log(items);
         const { destinatario, horaColeta, distancia, custo } = items;
 
+        // Verifique os parâmetros antes de usar
+        if (!destinatario || !horaColeta || !distancia || !custo) {
+            console.log("Erro: Parâmetros inválidos");
+            console.log(destinatario)
+            console.log(horaColeta)
+            console.log(distancia)
+            console.log(custo)
+            return;
+        }
+
         try {
             const web3modal = new Web3Modal();
             const connection = await web3modal.connect();
             const provider = new ethers.providers.Web3Provider(connection);
             const signer = provider.getSigner();
             const contract = fetchContract(signer);
-            const createItem = await contract.contract.criarEnvio(
+            const createItem = await contract.criarEnvio(
                 destinatario,
                 new Date(horaColeta).getTime(),
                 distancia,
-                ethers.utils.parseUnits(price, 18),
+                ethers.utils.parseUnits(custo, 18),
                 {
                     value: ethers.utils.parseUnits(custo, 18)
                 }
@@ -51,7 +61,7 @@ export const TrackingProvider = ({ children }) => {
 
             const envios = await contract.consultarTodosProcessos();
             const todosProcessos = envios.map((envio) => ({
-                remetente: envio.sender,
+                remetente: envio.remetente,
                 destinatario: envio.destinatario,
                 custo: ethers.utils.formatEther(envio.custo.toString()),
                 horaColeta: envio.horaColeta.toNumber(),
@@ -86,7 +96,7 @@ export const TrackingProvider = ({ children }) => {
     const finalizarEnvio = async (finalizar) => {
         console.log(finalizar);
 
-        const { recevier, index } = finalizar;
+        const { destinatario, index } = finalizar;
         try {
             if (!window.ethereum) return "Favor instalar o MetaMask";
 
@@ -101,7 +111,7 @@ export const TrackingProvider = ({ children }) => {
 
             const transaction = await contract.finalizarEnvio(
                 accounts[0],
-                remetente,
+                destinatario,
                 index,
                 {
                     gasLimit: 300000, // Mais seguro ter um limite de gas
@@ -147,7 +157,6 @@ export const TrackingProvider = ({ children }) => {
 
     const iniciarEnvio = async (consultarProduto) => {
         const { destinatario, index } = consultarProduto;
-
         try {
             if (!window.ethereum) return "Favor instalar o MetaMask";
 
@@ -157,12 +166,12 @@ export const TrackingProvider = ({ children }) => {
 
             const web3modal = new Web3Modal();
             const connect = await web3modal.connect();
-            const provider = new ethers.providers.Web3Provider(connection);
+            const provider = new ethers.providers.Web3Provider(connect);
             const signer = provider.getSigner();
             const contract = fetchContract(signer);
             const envio = await contract.iniciarEnvio(
                 accounts[0],
-                remetente,
+                destinatario,
                 index * 1,
             );
 

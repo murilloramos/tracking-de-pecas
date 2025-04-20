@@ -3,20 +3,20 @@ import { useState } from "react"
 export default ({
   setCreateShipmentModel,
   createShipmentModel,
-  createShipment,
+  criarEnvio,
 }) => {
   const [shipment, setShipment] = useState({
-    receiver: "",
-    pickupTime: "",
-    distance: "",
-    price: "",
+    destinatario: "",
+    horaColeta: "",
+    distancia: "",
+    custo: "",
   })
 
   const createItem = async () => {
     try {
-      await createShipment(shipment)
+      await criarEnvio(shipment)
     } catch (error) {
-      console.log("Wrong creating item")
+      console.log("Error creating shipment:", error)
     }
   }
   return createShipmentModel ? (
@@ -62,7 +62,7 @@ export default ({
                   onChange={(e) =>
                     setShipment({
                       ...shipment,
-                      receiver: e.target.value,
+                      destinatario: e.target.value,
                       })
                     }
                   />
@@ -75,7 +75,7 @@ export default ({
                   onChange={(e) =>
                     setShipment({
                       ...shipment,
-                      pickupTime: e.target.value,
+                      horaColeta: e.target.value,
                       })
                     }
                   />
@@ -88,7 +88,7 @@ export default ({
                   onChange={(e) =>
                     setShipment({
                       ...shipment,
-                      distance: e.target.value,
+                      distancia: e.target.value,
                       })
                     }
                   />
@@ -101,7 +101,7 @@ export default ({
                   onChange={(e) =>
                     setShipment({
                       ...shipment,
-                      price: e.target.value,
+                      custo: e.target.value,
                       })
                     }
                   />
@@ -122,5 +122,3 @@ export default ({
     ""
   )
 }
-
-// 2:21:50
