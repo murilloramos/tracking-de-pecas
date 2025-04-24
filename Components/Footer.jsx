@@ -3,20 +3,20 @@ import { Fot1, Fot2 } from "../Components/index"
 export default () => {
   const footerNavs = [
     {
-      href: "javascript:void()",
-      name: "Terms",
+      href: "#",
+      name: "",
     },
     {
-      href: "javascript:void()",
-      name: "License",
+      href: "#",
+      name: "",
     },
     {
-      href: "javascript:void()",
-      name: "Privacy",
+      href: "#",
+      name: "",
     },
     {
-      href: "javascript:void()",
-      name: "About us",
+      href: "#",
+      name: "",
     },
   ]
   return (
@@ -24,9 +24,9 @@ export default () => {
       <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
         <div className="justify-between sm:flex">
           <div className="space-y-6">
-            <img src="https://www.floatui.com/logo.svg" className="w-32" />
+            <img src="https://sjsp.org.br/wp-content/uploads/2023/05/faculdade-esamc-ins-log-g-3.png" className="w-32" />
             <p className="max-w-md">
-              Nulla auctor metus vitae lectus iaculis, vel euismod massa efficitur.
+              
             </p>
             <ul className="flex flex-wrap items-center gap-4 text-sm sm:text-base">
               {footerNavs.map((item, idx) => (
@@ -39,19 +39,13 @@ export default () => {
             </ul>
           </div>
           <div className="mt-6">
-            <p className="text-gray-700 font-semibold">Get the app</p>
+            <p className="text-gray-700 font-semibold"></p>
             <div className="flex items-center gap-3 mt-3 sm:block">
-              <a href="javascript:void()">
-                <Fot1 />
-              </a>
-              <a href="javascript:void()" className="mt-0 block sm:mt-3">
-                <Fot2 />
-              </a>
             </div>
           </div>
         </div>
         <div className="mt-10 py-10 border-t md:text-center">
-          <p>© 2022 Daulat Hussain. All rights reserved.</p>
+          <p>ESAMC</p>
         </div>
       </div>
     </footer>

@@ -7,10 +7,10 @@ export default () => {
   const { currentUser, conectarCarteira} = useContext(TrackingContext)
 
   const navigation = [
-    { title: "Home", path: "#"},
-    { title: "Services", path: "#"},
-    { title: "Contact Us", path: "#"},
-    { title: "Erc20", path: "#"},
+    { title: "", path: "#"},
+    { title: "", path: "#"},
+    { title: "", path: "#"},
+    { title: "", path: "#"},
   ]
 
   useEffect(() => {
@@ -31,10 +31,10 @@ export default () => {
       <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 md:flex md:px-8">
         <a href="javascript:void(0)">
           <img
-            src="https://www.floatui.com/logo.svg"
+            src="https://sjsp.org.br/wp-content/uploads/2023/05/faculdade-esamc-ins-log-g-3.png"
             width={120}
             height={50}
-            alt="Float UI logo"
+            alt="ESAMC logo"
           />
         </a>
         <div className="md:hidden">
