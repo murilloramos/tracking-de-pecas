@@ -16,6 +16,8 @@ export default ({
   const createItem = async () => {
     try {
       await criarEnvio(shipment)
+      setCreateShipmentModel(false)
+      window.location.reload()
     } catch (error) {
       console.log("Error creating shipment:", error)
     }

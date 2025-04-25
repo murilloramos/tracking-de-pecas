@@ -13,7 +13,7 @@ export default ({getModel, setGetModel, consultarEnvio }) => {
 
   const converTime = (time) => {
     const newTime = new Date(time)
-    const dataTime = new Intl.DateTimeFormat("en-US", {
+    const dataTime = new Intl.DateTimeFormat("pt-BR", {
       year:"numeric",
       month:"2-digit",
       day: "2-digit"
@@ -76,18 +76,15 @@ export default ({getModel, setGetModel, consultarEnvio }) => {
                 ""
               ) : (
                 <div className="text-left">
-                  <p>Sender: {singleShipmentData.remetente.slice(0, 25)}...</p>
-                  <p>Reciever: {singleShipmentData.destinatario.slice(0, 25)}...</p>
-                  <p>PickupTime: {converTime(singleShipmentData.horaColeta)}</p>
+                  <p><b>Remetente:</b> {singleShipmentData.remetente.slice(0, 25)}...</p>
+                  <p><b>Destinatário:</b> {singleShipmentData.destinatario.slice(0, 25)}...</p>
+                  <p><b>Data da coleta:</b> {converTime(singleShipmentData.horaColeta)}</p>
+                  <p><b>Distância:</b> {singleShipmentData.distancia} Km</p>
+                  <p><b>Custo:</b> {singleShipmentData.custo}</p>
+                  <p><b>Status:</b> {singleShipmentData.status}</p>
                   <p>
-                    DeliveryTime: {converTime(singleShipmentData.horaEntrega)}
-                  </p>
-                  <p>Distance: {singleShipmentData.distancia}</p>
-                  <p>Price: {singleShipmentData.custo}</p>
-                  <p>Status: {singleShipmentData.status}</p>
-                  <p>
-                    Paid:{""}
-                    {singleShipmentData.estaPago ? "Comlete" : "Not Complete"}
+                    <b>Pago:</b>{""}
+                    {singleShipmentData.estaPago ? " Concluído ✅" : " Não concluído ❌"}
                   </p>
                 </div>
               )}

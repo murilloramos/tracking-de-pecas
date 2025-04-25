@@ -7,8 +7,14 @@ export default ({ startModal, setStartModal, iniciarEnvio}) => {
     index: "",
   })
 
-  const iniciandoEnvio = () => {
-    iniciarEnvio(getProduct)
+  const iniciandoEnvio = async () => {
+    try {
+      await iniciarEnvio(getProduct)
+      setStartModal(false)
+      window.location.reload()
+    } catch (error) {
+      console.log("Erro ao iniciar o envio:", error)
+    }
   }
   return startModal ? (
     <div className="fixed inset-0 z-10 overflow-y-auto">

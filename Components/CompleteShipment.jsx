@@ -7,7 +7,13 @@ export default ({ completeModal, setCompleteModal, finalizarEnvio }) => {
   })
 
   const changeStatus = async () => {
-    finalizarEnvio(finalizacaoEnvio)
+    try {
+      await finalizarEnvio(finalizacaoEnvio)
+
+      window.location.reload()
+    } catch (error) {
+      console.log("Erro ao finalizar envio:", error)
+    }
   }
   return completeModal ? (
     <div className="fixed inset-0 z-10 overflow-y-auto">

@@ -54,10 +54,14 @@ export default ({ setCreateShipmentModel, allShipmentsData }) => {
                                 {shipment?.nomePeca ? shipment.nomePeca.slice(0, 15): "N/A"} {/* Exibindo o nome da peça */}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment?.remetente ? shipment.remetente.slice(0, 15) : "No Sender"}...
+                                {shipment?.remetente 
+                                ? `${shipment.remetente.slice(0, 6)}...${shipment.remetente.slice(-4)} `
+                                : "No Sender"}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment?.destinatario ? shipment.destinatario.slice(0, 15) : "No Receiver"}...
+                                {shipment?.destinatario 
+                                ? `${shipment.destinatario.slice(0, 6)}...${shipment.destinatario.slice(-4)} `
+                                : "No Receiver"}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 {converTime(shipment?.horaColeta)}  {/* Check if shipment.horaColeta is valid */}
