@@ -10,8 +10,6 @@ export default ({ setCreateShipmentModel, allShipmentsData }) => {
         return dataTime
     }
 
-    console.log(allShipmentsData)
-
     return (
         <div className="max-w-screen-xl mx-auto px-4 md:px-8">
             <div className="item-start justify-between md:flex">
@@ -37,12 +35,12 @@ export default ({ setCreateShipmentModel, allShipmentsData }) => {
                 <table className="w-full table-auto text-sm text-left">
                     <thead className="bg-gray-50 text-gray-600 font-medium border-b">
                         <tr>
+                            <th className="py-3 px-6">Peça</th>
                             <th className="py-3 px-6">Remetente</th>
                             <th className="py-3 px-6">Destinatário</th>
                             <th className="py-3 px-6">Data da coleta</th>
                             <th className="py-3 px-6">Distância</th>
                             <th className="py-3 px-6">Custo</th>
-                            <th className="py-3 px-6">Tempo de coleta</th>
                             <th className="py-3 px-6">Pagamento</th>
                             <th className="py-3 px-6">Status</th>
                         </tr>
@@ -52,6 +50,9 @@ export default ({ setCreateShipmentModel, allShipmentsData }) => {
                         // Debugging log to check the shipment data
                         console.log(shipment),  // Add this line to inspect the shipment data
                         <tr key={idx}>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                {shipment?.nomePeca ? shipment.nomePeca.slice(0, 15): "N/A"} {/* Exibindo o nome da peça */}
+                            </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 {shipment?.remetente ? shipment.remetente.slice(0, 15) : "No Sender"}...
                             </td>
@@ -66,9 +67,6 @@ export default ({ setCreateShipmentModel, allShipmentsData }) => {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 {shipment?.custo ?? "N/A"} {/* Optional chaining and nullish coalescing */}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                {shipment?.horaEntrega ?? "N/A"} {/* Optional chaining and nullish coalescing */}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 {shipment?.estaPago ? "Pago" : "Pendente de pagamento"}

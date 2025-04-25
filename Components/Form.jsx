@@ -10,6 +10,7 @@ export default ({
     horaColeta: "",
     distancia: "",
     custo: "",
+    nomePeca: "", //  Novo estado para o nome da peça
   })
 
   const createItem = async () => {
@@ -54,6 +55,20 @@ export default ({
               Insira abaixo as informações necessárias para registrar o envio da peça na blockchain. Esse registro permitirá futuras consultas e o rastreamento completo do processo.
             </p>
             <form onSubmit={(e) => e.preventDefault()}>
+              {/* Campo para o nome da peça */}
+              <div className="relative mt-3">
+                <input
+                  type="text"
+                  placeholder="nome da peça"
+                  className="w-full pl-5 pr-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                  onChange={(e) =>
+                    setShipment({
+                      ...shipment,
+                      nomePeca: e.target.value,
+                    })
+                  }
+                />
+              </div>
               <div className="relative mt-3">
                 <input
                   type="text"
@@ -111,7 +126,7 @@ export default ({
                   onClick={() => createItem()}
                   className="block w-full mt-3 py-3 px-4 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg ring-offset-2 ring-indigo-600 focus:ring-2"
                 >
-                  Create Shipment
+                  Criar Rastreio
                 </button>
               </form>
             </div>

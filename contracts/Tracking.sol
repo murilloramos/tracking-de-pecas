@@ -11,6 +11,7 @@ contract Tracking {
         uint256 horaEntrega;
         uint256 distancia;
         uint256 custo;
+        string nomePeca;
         Status status;
         bool estaPago;
     }
@@ -25,13 +26,14 @@ contract Tracking {
         uint256 horaEntrega;
         uint256 distancia;
         uint256 custo;
+        string nomePeca;
         Status status;
         bool estaPago;
     }
 
     TipoEnvio[] tipoEnvios; // array
 
-    event EnvioCriado(address indexed remetente, address indexed destinatario, uint256 horaColeta, uint256 distancia, uint256 custo);
+    event EnvioCriado(address indexed remetente, address indexed destinatario, uint256 horaColeta, uint256 distancia, uint256 custo, string nomePeca);
     event EnvioEmTransito(address indexed remetente, address indexed destinatario, uint256 horaColeta);
     event EnvioEntregue(address indexed remetente, address indexed destinatario, uint256 indexed horaEntrega);
     event EnvioPago(address indexed remetente, address indexed destinatario, uint256 quantidade);
@@ -40,10 +42,10 @@ contract Tracking {
         contagemEnvio = 0;
     }
 
-    function criarEnvio(address _destinatario, uint256 _horaColeta, uint256 _distancia, uint256 _custo) public payable {
+    function criarEnvio(address _destinatario, uint256 _horaColeta, uint256 _distancia, uint256 _custo, string memory _nomePeca) public payable {
         require(msg.value == _custo, "O valor do pagamento deve corresponder ao custo");
 
-        Envio memory envio = Envio(msg.sender, _destinatario, _horaColeta, 0, _distancia, _custo, Status.PENDENTE, false);
+        Envio memory envio = Envio(msg.sender, _destinatario, _horaColeta, 0, _distancia, _custo, _nomePeca, Status.PENDENTE, false);
 
         envios[msg.sender].push(envio);
         contagemEnvio++;
@@ -56,11 +58,12 @@ contract Tracking {
                 0,
                 _distancia,
                 _custo,
+                _nomePeca,
                 Status.PENDENTE,
                 false
             )
         );
-        emit EnvioCriado(msg.sender, _destinatario, _horaColeta, _distancia, _custo);
+        emit EnvioCriado(msg.sender, _destinatario, _horaColeta, _distancia, _custo, _nomePeca);
     }
 
     function iniciarEnvio(address _remetente, address _destinatario, uint256 _index) public {
@@ -100,9 +103,9 @@ contract Tracking {
         emit  EnvioPago(_remetente, _destinatario, quantidade);
     }
 
-    function consultarEnvio(address _remetente, uint256 _index) public view returns (address, address, uint256, uint256, uint256, uint256, Status, bool) {
+    function consultarEnvio(address _remetente, uint256 _index) public view returns (address, address, uint256, uint256, uint256, uint256, string memory, Status, bool) {
         Envio memory envio = envios[_remetente][_index];
-        return (envio.remetente, envio.destinatario, envio.horaColeta, envio.horaEntrega, envio.distancia, envio.custo, envio.status, envio.estaPago);
+        return (envio.remetente, envio.destinatario, envio.horaColeta, envio.horaEntrega, envio.distancia, envio.custo, envio.nomePeca, envio.status, envio.estaPago);
     }
 
     function consultarQuantidadeEnvio(address _remetente) public view returns (uint256) {

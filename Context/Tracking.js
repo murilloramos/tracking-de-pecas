@@ -20,10 +20,10 @@ export const TrackingProvider = ({ children }) => {
 
     const criarEnvio = async (items) => {
         console.log(items);
-        const { destinatario, horaColeta, distancia, custo } = items;
+        const { destinatario, horaColeta, distancia, custo, nomePeca } = items;
 
         // Verifique os parâmetros antes de usar
-        if (!destinatario || !horaColeta || !distancia || !custo) {
+        if (!destinatario || !horaColeta || !distancia || !custo || !nomePeca) {
             console.log("Erro: Parâmetros inválidos");
             console.log(destinatario)
             console.log(horaColeta)
@@ -43,14 +43,16 @@ export const TrackingProvider = ({ children }) => {
                 new Date(horaColeta).getTime(),
                 distancia,
                 ethers.utils.parseUnits(custo, 18),
+                nomePeca,
                 {
                     value: ethers.utils.parseUnits(custo, 18)
                 }
             );
+
             await createItem.wait();
-            console.log(createItem);
+            console.log("Envio criado:", createItem);
         } catch (error) {
-            console.log("Algo errado", error);
+            console.log("Algo errado ao criar envio", error);
         }
     };
 
@@ -69,11 +71,12 @@ export const TrackingProvider = ({ children }) => {
                 distancia: envio.distancia.toNumber(),
                 estaPago: envio.estaPago,
                 status: envio.status,
+                nomePeca: envio.nomePeca,
             }));
 
             return todosProcessos;
         } catch (error) {
-            console.log("Erro em consultar os envios");
+            console.log("Erro em consultar os envios", error);
         }
     };
 
@@ -147,6 +150,7 @@ export const TrackingProvider = ({ children }) => {
                 custo: ethers.utils.formatEther(envio[5].toString()),
                 status: envio[6],
                 estaPago: envio[7],
+                nomePeca: envio[8],
             };
 
             return UnicoEnvio;
