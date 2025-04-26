@@ -81,7 +81,7 @@ export default ({getModel, setGetModel, consultarEnvio }) => {
                   <p><b>Data da coleta:</b> {converTime(singleShipmentData.horaColeta)}</p>
                   <p><b>Distância:</b> {singleShipmentData.distancia} Km</p>
                   <p><b>Custo:</b> {singleShipmentData.custo}</p>
-                  <p><b>Status:</b> {singleShipmentData.status}</p>
+                  <p><b>Peça:</b> {singleShipmentData.status}</p>
                   <p>
                     <b>Pago:</b>{""}
                     {singleShipmentData.estaPago ? " Concluído ✅" : " Não concluído ❌"}
